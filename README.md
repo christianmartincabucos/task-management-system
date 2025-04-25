@@ -120,9 +120,11 @@ The easiest way to run the application is using Docker:
 
 3. Create a `.env` file:
    ```
-   VITE_API_URL=http://localhost:8000
-   VITE_PUSHER_APP_KEY=your_pusher_key
-   VITE_PUSHER_APP_CLUSTER=your_pusher_cluster
+   VITE_PUSHER_APP_KEY=app-key
+   VITE_PUSHER_HOST=localhost
+   VITE_PUSHER_PORT=6001
+   VITE_PUSHER_SCHEME=http
+   VITE_PUSHER_APP_CLUSTER=mt1
    ```
 
 4. Start the development server:
@@ -146,7 +148,7 @@ docker-compose exec backend php artisan test
 
 ## API Documentation
 
-The API documentation is available as a Postman collection in the `backend/postman_collection.json` file. Import this file into Postman to explore the API endpoints.
+The API documentation is available as a Postman collection in the `backend/task_management_postman_api.json` file. Import this file into Postman to explore the API endpoints.
 
 ## Scheduled Tasks
 
