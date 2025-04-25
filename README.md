@@ -37,20 +37,20 @@ The easiest way to run the application is using Docker:
 
 4. Install backend dependencies:
    ```bash
-   docker-compose exec task-backend composer install
+   docker exec -it task-backend composer install
    ```
 
 5. Generate application key:
    ```bash
-   docker-compose exec task-backend php artisan key:generate
+   docker exec -it task-backend php artisan key:generate
    ```
 
 6. Run migrations and DatabaeSeeder:
    ```bash
-   docker-compose exec task-backend php artisan migrate
+   docker exec -it task-backend php artisan migrate
    ```
    ```bash
-   docker-compose exec task-backend php artisan db:seed
+   docker exec -it task-backend php artisan db:seed
    ```
 
 7. Access the application:
