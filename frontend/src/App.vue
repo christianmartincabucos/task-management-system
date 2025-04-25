@@ -4,12 +4,13 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'App',
-}
-</script>
+<script setup>
+import { onBeforeUnmount } from 'vue'
+import { useTaskStore } from '@/stores/task'
 
-<style>
-/* Global styles can be added here */
-</style>
+const taskStore = useTaskStore()
+
+onBeforeUnmount(() => {
+  taskStore.disconnectWebSockets()
+})
+</script>

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\TaskUpdated;
 use App\Repositories\Interfaces\TaskRepositoryInterface;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 
 class TaskService
@@ -24,9 +25,8 @@ class TaskService
     {
         $task = $this->taskRepository->getById($id);
         
-        // Check if the user owns this task or is an admin
-        if ($task->user_id !== Auth::id() && !Auth::user()->isAdmin()) {
-            throw new \Exception('Unauthorized access to task');
+        if ($task->user_id !== Auth::id() && !Auth::user()->is_admin) {
+            throw new AuthorizationException('You are not authorized to access this task');
         }
         
         return $task;
@@ -42,20 +42,13 @@ class TaskService
     {
         $task = $this->getTask($id);
         $task = $this->taskRepository->update($id, $data);
-        
-        event(new TaskUpdated($task));
-        
+                
         return $task;
     }
 
     public function deleteTask($id)
     {
-        $task = $this->getTask($id);
-        
-        // Only admins or task owners can delete tasks
-        if (!Auth::user()->isAdmin() && $task->user_id !== Auth::id()) {
-            throw new \Exception('Unauthorized to delete this task');
-        }
+        $this->getTask($id);
         
         return $this->taskRepository->delete($id);
     }
